@@ -1,30 +1,31 @@
 #include "shell.h"
 
+/* split string into array of words based on a specified delimiter.*/
+
 /**
- * strtow - splint string into letters
- * @str: input string
- * @d: delimiter
- * Return: pointer to array of string
+ * **strtow - splits a string into words.
+ * @str: input string.
+ * @d: the delimeter.
+ * Return: a pointer to an array of strings
  */
+
 char **strtow(char *str, char *d)
 {
-	int a, b, c, numwords = 0;
+	int a, b, c, e, numwords = 0;
 	char **s;
 
 	if (str == NULL || str[0] == 0)
-		return (NULL);
-	/* check if string is empty */
+		return (NULL);/* if string is empty.*/
 	if (!d)
-		d = "";
-	/* no delim, fallback to space character */
+		d = " ";/* if d is NULL, it defaults to a space character.*/
 	for (a = 0; str[a] != '\0'; a++)
 		if (!is_delim(str[a], d) && (is_delim(str[a + 1], d) || !str[a + 1]))
-			numwords++;
-	/* count no. of words in string */
+			numwords++;/* Counts number of words in inputr string.*/
+
 	if (numwords == 0)
-		return (NULL);
+		return (NULL);/* if no words in the string.*/
 	s = malloc((1 + numwords) * sizeof(char *));
-	/* allocating mem for words counted */
+	/* memory allocation based on number of words counted.*/
 	if (!s)
 		return (NULL);
 	for (a = 0, b = 0; b < numwords; b++)
@@ -51,10 +52,10 @@ char **strtow(char *str, char *d)
 }
 
 /**
- * strtow2 - split string into words
- * @str: i/p string
- * @d: delimeter
- * Return: pointer to array of string/null on fail
+ * **strtow2 - it splits a string into words.
+ * @str: input string.
+ * @d: the delimeter.
+ * Return: a pointer to an array of strings, or NULL on failure
  */
 char **strtow2(char *str, char d)
 {
@@ -62,14 +63,15 @@ char **strtow2(char *str, char d)
 	char **s;
 
 	if (str == NULL || str[0] == 0)
-		return (NULL);
+		return (NULL);/* if no words in the string.*/
 	for (a = 0; str[a] != '\0'; a++)
-	       if((str[a] != d && str[a + 1] == d) || (str[a] != d && !str[a + 1]) || str[a + 1] == d)
-		       numwords++;
+		if ((str[a] != d && str[a + 1] == d) ||
+				    (str[a] != d && !str[a + 1]) || str[a + 1] == d)
+			numwords++;
 	if (numwords == 0)
 		return (NULL);
 	s = malloc((1 + numwords) * sizeof(char *));
-	/* allocating mem for array of strings */
+	/* memory allocation to array of strings.*/
 	if (!s)
 		return (NULL);
 	for (a = 0, b = 0; b < numwords; b++)
@@ -91,7 +93,6 @@ char **strtow2(char *str, char d)
 			s[b][e] = str[a++];
 		s[b][e] = 0;
 	}
-	s[b] = NULL;
-	/* inserting null delim at end of every string */
+	s[b] = NULL;/* add null delimiter to end of every string.*/
 	return (s);
 }
