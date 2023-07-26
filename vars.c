@@ -4,7 +4,7 @@
  * is_chain - checks for chain delim
  * @info: parameter
  * @buf: char buffer
- * @b: address of current position
+ * @pointer: address of current position
  * Return: 1 chain delim found, 0 not found
  */
 int is_chain(info_t *info, char *buf, size_t *pointer)
@@ -35,11 +35,12 @@ int is_chain(info_t *info, char *buf, size_t *pointer)
  * @info: par struct
  * @buf: buffer
  * @b: current pos of address in buf
- * @i: starting pos in buf
+ * @pointer: starting pos in buf
  * @len: buf length
  * Return: void
  */
-void check_chain(info_t *info, char *buf, size_t *pointer, size_t b, size_t len)
+void check_chain(info_t *info, char *buf,
+		size_t *pointer, size_t b, size_t len)
 {
 	size_t a = *pointer;
 
@@ -104,11 +105,12 @@ int replace_vars(info_t *info)
 	{
 		if (info->argv[b][0] != '$' || !info->argv[b][1])
 			continue;
-		if (!_strcmp(info->argv[b], "$?"))
-		{
-			replace_string(&(info->argv[b]), _strdup(convert_number(info->status, 10, 0)));
-			continue;
-		}
+	if (!_strcmp(info->argv[b], "$?"))
+	{
+	replace_string(&(info->argv[b]),
+			_strdup(convert_number(info->status, 10, 0)));
+		continue;
+	}
 		if (!_strcmp(info->argv[b], "$$"))
 		{
 			replace_string(&(info->argv[b]), _strdup(convert_number(getpid(), 10, 0)));
