@@ -74,8 +74,7 @@ int read_history(info_t *info)
 	if (!filename)
 		return (0);
 
-	fd = open(filename, O_RDONLY);
-	/* it opens file in read only mode after getting path.*/
+	fd = open(filename, O_RDONLY);/* opens file in read only mode*/
 	free(filename);
 	if (fd == -1)
 		return (0);
@@ -83,8 +82,7 @@ int read_history(info_t *info)
 		fsize = st.st_size;
 	if (fsize < 2)
 		return (0);/* Returns 0 if file is less that 2 bytes.*/
-	buf = malloc(sizeof(char) * (fsize + 1));
-	/* Allocates buffer with same size as buffer.*/
+	buf = malloc(sizeof(char) * (fsize + 1));/* Allocates buffer*/
 	if (!buf)
 		return (0);
 	rdlen = read(fd, buf, fsize);
@@ -101,13 +99,11 @@ int read_history(info_t *info)
 		}
 	if (last != a)
 		build_history_list(info, buf + last, linecount++);
-		/* Adds each line to history linked list.*/
 	free(buf);/* frees the buffer.*/
 	info->histcount = linecount;
 	while (info->histcount-- >= HIST_MAX)
 		delete_node_at_index(&(info->history), 0);
-		/*Removes oldest node if histcount exceeds HIST_MAX count.*/
-	renumber_history(info);/* To renumber nodes in the history linked list.*/
+	renumber_history(info);/*renumber nodes history linked list*/
 	return (info->histcount);
 }
 

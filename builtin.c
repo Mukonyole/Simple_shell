@@ -8,27 +8,22 @@
  * (0) if info.argv[0] != "exit"
  */
 int _myexit(info_t *info)
-/* it takes a pointer to a structure called info_t as an argument */
 {
 	int exitcheck;
 
-	if (info->argv[1])
-	/* If there is an argument passed to the function */
+	if (info->argv[1])/* If an argument passed to the function */
 	{
 		exitcheck = _erratoi(info->argv[1]);
-		/* if argument can be converted to integer */
 		if (exitcheck == -1)
 		{
 			info->status = 2;
-			/* if conversion fails, it prints error message before returning 1 */
 			print_error(info, "Illegal number: ");
 			_eputs(info->argv[1]);
 			_eputchar('\n');
 			return (1);
 		}
 		info->err_num = _erratoi(info->argv[1]);
-		return (-2);
-		/* if no argument, it sets err_num to -1 and returns -2 */
+		return (-2);/* if no argument, it sets err_num to -1 and returns -2 */
 	}
 	info->err_num = -1;
 	return (-2);
@@ -41,7 +36,6 @@ int _myexit(info_t *info)
  * Return: Always 0.
  */
 int _mycd(info_t *info)
-/* it takes a pointer to info_t structure as an argument */
 {
 	char *a, *dir, buffer[1024];
 	int chdir_ret;
@@ -49,17 +43,13 @@ int _mycd(info_t *info)
 	a = getcwd(buffer, 1024); /* getting current working directory */
 	if (!a)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
-	/* what it prints if directory is not found */
 	if (!info->argv[1])
 	{
-		dir = _getenv(info, "HOME=");
-		/* it gets to home directory if no argument is passed */
+		dir = _getenv(info, "HOME=");/*if no arg is passed */
 		if (!dir)
 			chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
-			/* gets current directory if home directory is not found */
 		else
-			chdir_ret = chdir(dir);
-		/* it changes directory to obtained directory */
+			chdir_ret = chdir(dir);/* it changes directory to obtained directory */
 	}
 	else if (_strcmp(info->argv[1], "-") == 0)
 	{
@@ -95,7 +85,6 @@ int _mycd(info_t *info)
  * Return: Always 0
  */
 int _myhelp(info_t *info) /* it takes a pointer info_t as an argument */
-/* it is used to display help message */
 {
 	char **arg_array;
 

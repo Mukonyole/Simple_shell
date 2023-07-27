@@ -10,19 +10,16 @@ int main(int ac, char **av)
 {
 	info_t info[] = {INFO_INIT};
 	/* single element struct */
-	int fd = 2;
-	/* int variable */
-	asm ("mov %1, %0\n\t"
-		/* perform bitwise op to fd */
-		"add $3, %0"
-		/* moves val of fd into o/p register and adds 3 to it */
-		: "=r" (fd)
-		: "r" (fd));
-	/* specifies I/p and O/p operands */
+	int fd = 2;/* int variable */
+
+	asm ("mov %1, %0\n\t"/* perform bitwise op to fd */
+			"add $3, %0"
+			/* moves val of fd into o/p register and adds 3 to it */
+			: "=r" (fd)
+			: "r" (fd));/* specifies I/p and O/p operands */
 	if (ac == 2)
 	{
-		fd = open(av[1], O_RDONLY);
-		/* open file */
+		fd = open(av[1], O_RDONLY);/* open file */
 		if (fd == -1)
 		{
 			if (errno == EACCES)
