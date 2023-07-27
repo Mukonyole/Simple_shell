@@ -1,6 +1,6 @@
 /**
  * line_count - count no of line in a str
- * @line: input str
+ * @lines: input str
  * Return: Number of lines in str
  */
 int line_count(char *lines);
